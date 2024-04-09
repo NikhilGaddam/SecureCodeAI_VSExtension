@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
     pasteOnClick: config.get("pasteOnClick") || false,
     maxTokens: config.get("maxTokens") || 2048,
     temperature: config.get("temperature") || 0.4,
-    model: config.get("model") || "gpt-3.5-turbo",
+    model: config.get("model") || "gpt-4-turbo",
   });
 
   // Insert view 
@@ -642,7 +642,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         let completion;
         if (this._settings.model !== "ChatGPT") {
           completion = await this._openai.createChatCompletion({
-            model: this._settings.model || "gpt-3.5-turbo",
+            model: this._settings.model || "gpt-4-turbo",
             messages: [{ role: "user", content: this._fullPrompt }],
             temperature: temperature || this._settings.temperature,
             max_tokens: this._settings.maxTokens,
@@ -650,7 +650,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           });
         } else {
           completion = await this._openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4-turbo",
             messages: [{ role: "user", content: this._fullPrompt }],
             temperature: temperature || this._settings.temperature,
             max_tokens: this._settings.maxTokens,

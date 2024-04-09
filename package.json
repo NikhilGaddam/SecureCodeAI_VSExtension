@@ -244,8 +244,8 @@
             "code-davinci-002",
             "code-cushman-002"
           ],
-          "default": "gpt-3.5-turbo",
-          "description": "Which GPT3 model to use",
+          "default": "gpt-4-turbo",
+          "description": "Which GPT model to use",
           "order": 1
         },
         "alva.pasteOnClick": {

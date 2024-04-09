@@ -94,7 +94,7 @@ The most intelligent way to take care of your code ↓\
 By ensuring you bring your own API key from OpenAI, we do not charge you additional costs for our free plan.\
 \
 Get your API key from [https://platform.openai.com/account/api-keys].\
-We utilize GPT-3.5-turbo by default to ensure the best natural langauge responses to propel devs like you.
+We utilize GPT-4-turbo by default to ensure the best natural langauge responses to propel devs like you.
 
 #### Disclaimer
 
