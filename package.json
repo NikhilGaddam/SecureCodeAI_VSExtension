@@ -1,0 +1,347 @@
+{
+  "name": "SecureCode",
+  "version": "1.0.132",
+  "description": "Autocorrect, secure, test, and improve code with AI",
+  "displayName": "SecureCode - AI Assistant, Chat & Code Lab",
+  "icon": "resources/extensionIcon.png",
+  "publisher": "AlvaAI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/mineitan/gpt-code.git"
+  },
+  "categories": [
+    "Programming Languages",
+    "Machine Learning",
+    "Extension Packs",
+    "Education",
+    "Snippets",
+    "Debuggers",
+    "Linters"
+  ],
+  "keywords": [
+    "artificial intelligence",
+    "ai-tools",
+    "chatgpt",
+    "gpt4",
+    "gpt3",
+    "gpt",
+    "ai",
+    "code integrity",
+    "code analysis",
+    "code quality",
+    "static analysis",
+    "machine learning",
+    "deep learning",
+    "nlp",
+    "autocorrect",
+    "code generator",
+    "code review",
+    "automated review",
+    "software quality",
+    "reliability",
+    "error detection",
+    "vulnerabilities",
+    "vulnerability scanner",
+    "compliance",
+    "syntax",
+    "semantics",
+    "refactoring",
+    "debugging",
+    "integration",
+    "deployment",
+    "devops",
+    "sdlc",
+    "modelling",
+    "anomaly",
+    "optimization",
+    "management",
+    "monitoring",
+    "algorithms",
+    "data science",
+    "integrity",
+    "security",
+    "cybersecurity",
+    "assessment",
+    "audit",
+    "detection",
+    "prediction",
+    "standardization",
+    "clean code",
+    "efficiency",
+    "maintenance",
+    "correctness",
+    "practices",
+    "languages",
+    "compliance",
+    "complexity",
+    "engineering",
+    "analysis",
+    "ethics",
+    "neural networks",
+    "testing",
+    "coverage",
+    "scalability",
+    "documentation",
+    "python",
+    "java",
+    "c++",
+    "c#",
+    "css",
+    "javascript",
+    "typescript",
+    "ruby",
+    "swift",
+    "rust",
+    "golang",
+    "kotlin",
+    "perl",
+    "php",
+    "sql",
+    "r",
+    "scala",
+    "lua",
+    "shell"
+  ],
+  "activationEvents": [
+    "onView:alva.chatView",
+    "onCommand:alva.ask",
+    "onCommand:alva.explain",
+    "onCommand:alva.optimize",
+    "onCommand:alva.complete",
+    "onCommand:alva.unitTesting",
+    "onCommand:alva.documentation"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "alva.ask",
+        "title": "SecureCode — Ask"
+      },
+      {
+        "command": "alva.explain",
+        "title": "SecureCode — Explain"
+      },
+      {
+        "command": "alva.optimize",
+        "title": "SecureCode — Optimize"
+      },
+      {
+        "command": "alva.complete",
+        "title": "SecureCode — Complete"
+      },
+      {
+        "command": "alva.documentation",
+        "title": "SecureCode — Inline Steps"
+      },
+      {
+        "command": "alva.unitTesting",
+        "title": "SecureCode — Generate Tests"
+      },
+      {
+        "command": "alva.resetSession",
+        "title": "Reset OpenAI API session"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "alva.ask",
+          "when": "editorTextFocus",
+          "group": "alva-menu-group@1"
+        },
+        {
+          "command": "alva.explain",
+          "when": "editorHasSelection",
+          "group": "alva-menu-group@2"
+        },
+        {
+          "command": "alva.optimize",
+          "when": "editorHasSelection",
+          "group": "alva-menu-group@3"
+        },
+        {
+          "command": "alva.complete",
+          "when": "editorHasSelection",
+          "group": "alva-menu-group@4"
+        },
+        {
+          "command": "alva.documentation",
+          "when": "editorHasSelection",
+          "group": "alva-menu-group@5"
+        },
+        {
+          "command": "alva.unitTesting",
+          "when": "editorHasSelection",
+          "group": "alva-menu-group@6"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "alva.ask"
+        },
+        {
+          "command": "alva.explain",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "alva.optimize",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "alva.complete",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "alva.documentation",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "alva.unitTesting",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "alva.resetSession"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "alva",
+          "title": "SecureCode",
+          "icon": "./resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "alva": [
+        {
+          "type": "webview",
+          "id": "alva.chatView",
+          "name": "SecureCode"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SecureCode",
+      "type": "object",
+      "properties": {
+        "alva.apiKey": {
+          "type": "string",
+          "markdownDescription": "API key from OpenAI (https://platform.openai.com/account/api-keys)",
+          "order": 0
+        },
+        "alva.model": {
+          "type": "string",
+          "enum": [
+            "ChatGPT",
+            "gpt-4",
+            "gpt-3.5-turbo",
+            "text-davinci-003",
+            "text-curie-001",
+            "code-davinci-002",
+            "code-cushman-002"
+          ],
+          "default": "gpt-3.5-turbo",
+          "description": "Which GPT3 model to use",
+          "order": 1
+        },
+        "alva.pasteOnClick": {
+          "readOnly": true,
+          "type": "boolean",
+          "default": true,
+          "description": "Insert the code from a response into the editor upon clicking it",
+          "order": 2
+        },
+        "alva.promptPrefix.explain": {
+          "readOnly": true,
+          "type": "string",
+          "default": "Explain code in less than 100 words: ",
+          "description": "The prompt prefix used for explaining the selected code",
+          "order": 3
+        },
+        "alva.promptPrefix.optimize": {
+          "readOnly": true,
+          "type": "string",
+          "default": "\n\n\nOptimize and attempt shortening the following code. Your response should consist exclusively of the entire new code in a codeblock, without any additional explanations or commentary. Code: ",
+          "description": "The prompt prefix used for finding problems in the selected code",
+          "order": 4
+        },
+        "alva.promptPrefix.complete": {
+          "readOnly": true,
+          "type": "string",
+          "default": "\n\n\nProvide a completion to the following code. It must be creative and smart, use whatever clues you find to generate it. Your response should consist exclusively of the entire new code in a codeblock, without any additional explanations or commentary. Code: ",
+          "description": "The prompt prefix used for code completion",
+          "order": 5
+        },
+        "alva.promptPrefix.unitTesting": {
+          "readOnly": true,
+          "type": "string",
+          "default": "Provide comprehensive and well-structured unit tests for the following code snippet, ensuring to cover all possible scenarios, edge cases, and expected behaviors. Utilize the necessary testing framework for the language the code is written in. Before the codeblock, add title 'ᚦUNIT TESTING [NAME]' replace 'NAME' with uppercase name of testing framework you used. Each test should be modular, straightforward, and adhere to test-driven development best practices. Your answer should be limited to the test code and title, without any extra text explanation or commentary code: ",
+          "description": "The prompt prefix used for generating unit tests for the selected code.",
+          "order": 6
+        },
+        "alva.promptPrefix.documentation": {
+          "readOnly": true,
+          "type": "string",
+          "default": "\n\n\nAdd inline comments behind line ends and return entire full following code: ",
+          "description": "The prompt prefix used for writing documentation for the selected code",
+          "order": 7
+        },
+        "alva.selectedInsideCodeblock": {
+          "readOnly": true,
+          "type": "boolean",
+          "default": true,
+          "description": "Append selected code as a codeblock (```...code...```) instead of plain text",
+          "order": 8
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "update-package-lock": "npm install --package-lock-only"
+  },
+  "dependencies": {
+    "gaxios": "^6.0.3",
+    "google-auth-library": "^9.0.0",
+    "markdown-it": "^13.0.1",
+    "openai": "3.3",
+    "server-destroy": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.3.0",
+    "@types/vscode": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "@vscode/test-electron": "^2.3.2",
+    "esbuild": "^0.18.0",
+    "eslint": "^8.42.0",
+    "eslint-config-standard-with-typescript": "^35.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "glob": "^10.2.7",
+    "mocha": "^10.2.0",
+    "prettier": "2.8.8",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3",
+    "webpack": "^5.86.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "engines": {
+    "vscode": "^1.73.0"
+  }
+}
