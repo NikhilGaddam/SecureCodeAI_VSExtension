@@ -321,29 +321,29 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           this.clearInput();
           break;
         }
-        case "terminal": {
-          const workspaceFolders = vscode.workspace.workspaceFolders;
-          const terminal = vscode.window.createTerminal(`SecureCode-Terminal`);
-          terminal.show();
-          const apiKey = this._apiKey;
-          const cliPath = `${this._extensionUri}/resources/cli.py`;
-          if (workspaceFolders && workspaceFolders.length > 0) {
-            let currentDir = workspaceFolders[0].uri.fsPath;
-            if (currentDir.startsWith("file://")) {
-              currentDir = currentDir.substring(7);
-            }
-            let cliPathClean = cliPath;
-            if (cliPath.startsWith("file://")) {
-              cliPathClean = cliPath.substring(7);
-            }
-            const command = `python3 '${cliPathClean}' -c -k '${apiKey}' -d '${currentDir}'`;
-            terminal.sendText("pip3 show openai || pip3 install openai");
-            terminal.sendText(command);
-            terminal.show();
-          } else {
-            vscode.window.showErrorMessage("Please open a workspace folder!");
-          }
-        }
+        // case "terminal": {
+        //   const workspaceFolders = vscode.workspace.workspaceFolders;
+        //   const terminal = vscode.window.createTerminal(`SecureCode-Terminal`);
+        //   terminal.show();
+        //   const apiKey = this._apiKey;
+        //   const cliPath = `${this._extensionUri}/resources/cli.py`;
+        //   if (workspaceFolders && workspaceFolders.length > 0) {
+        //     let currentDir = workspaceFolders[0].uri.fsPath;
+        //     if (currentDir.startsWith("file://")) {
+        //       currentDir = currentDir.substring(7);
+        //     }
+        //     let cliPathClean = cliPath;
+        //     if (cliPath.startsWith("file://")) {
+        //       cliPathClean = cliPath.substring(7);
+        //     }
+        //     const command = `python3 '${cliPathClean}' -c -k '${apiKey}' -d '${currentDir}'`;
+        //     terminal.sendText("pip3 show openai || pip3 install openai");
+        //     terminal.sendText(command);
+        //     terminal.show();
+        //   } else {
+        //     vscode.window.showErrorMessage("Please open a workspace folder!");
+        //   }
+        // }
         case "clear": {
           this.clearInput();
           webviewView.webview.postMessage({
@@ -734,6 +734,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
       
 
       <script src="https://accounts.google.com/gsi/client" async></script>
+      <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
 
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
@@ -798,7 +799,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           animation: shimmer 2s infinite linear;
           position: sticky;
           width: 0;
-          background-color: #5747FF;
+          background-color: #e45015;
           background: linear-gradient(to right, rgba(87, 71, 255, 0.45) 45%, rgba(87, 71, 255, 0.65) 60%, rgba(87, 71, 255, 0.45) 75%);
           animation: shimmer 2s infinite linear, increaseWidth 5s;
           border-radius: 10px;
@@ -873,7 +874,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           padding-bottom: 10px;
           text-color: white;
           border-width: 1.5px;
-          border-color: #6859FF;
+          border-color: #ef533f;
           background-color: rgba(154, 145, 255, 0.15);
           box-shadow: 0 0.045rem 4px rgba(188, 181, 255, 0.095);
           outline: none;
@@ -898,7 +899,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         }
         .documentation-style-dropdown:focus,
         .testing-framework-dropdown:focus {
-          border-color: #5747FF;
+          border-color: #e45015;
           background-color: rgba(255, 255, 255, 0.065);
           outline: none;
         }
@@ -919,7 +920,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           transition: all 0.3s ease;
         }
         .input-small-target:focus {
-          border-color: #5747FF;
+          border-color: #e45015;
           border-width: 1.5px;
           background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14Z" fill="rgba(255,255,255,0.85)"></path></svg>');
           background-color: rgba(255, 255, 255, 0.065);
@@ -943,7 +944,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           transition: all 0.3s ease;
         }
         .input-small-in:focus {
-          border-color: #5747FF;
+          border-color: #e45015;
           border-width: 1.5px;
           background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M10 11V8L15 12L10 16V13H1V11H10ZM2.4578 15H4.58152C5.76829 17.9318 8.64262 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9H2.4578C3.73207 4.94289 7.52236 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C7.52236 22 3.73207 19.0571 2.4578 15Z" fill="rgba(255,255,255,0.85)"></path></svg>');
           background-color: rgba(255, 255, 255, 0.065);
@@ -967,7 +968,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           transition: all 0.3s ease;
         }
         .input-small-out:focus {
-          border-color: #5747FF;
+          border-color: #e45015;
           border-width: 1.5px;
           background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M5 11H13V13H5V16L0 12L5 8V11ZM3.99927 18H6.70835C8.11862 19.2447 9.97111 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C9.97111 4 8.11862 4.75527 6.70835 6H3.99927C5.82368 3.57111 8.72836 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C8.72836 22 5.82368 20.4289 3.99927 18Z" fill="rgba(255,255,255,0.85)"></path></svg>');
           background-color: rgba(255, 255, 255, 0.065);
@@ -991,7 +992,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           transition: all 0.3s ease;
         }
         .input-small-spark:focus {
-          border-color: #5747FF;
+          border-color: #e45015;
           border-width: 1.5px;
           background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M15 5.25C16.7949 5.25 18.25 3.79493 18.25 2H19.75C19.75 3.79493 21.2051 5.25 23 5.25V6.75C21.2051 6.75 19.75 8.20507 19.75 10H18.25C18.25 8.20507 16.7949 6.75 15 6.75V5.25ZM4 7C4 5.89543 4.89543 5 6 5H13V3H6C3.79086 3 2 4.79086 2 7V17C2 19.2091 3.79086 21 6 21H18C20.2091 21 22 19.2091 22 17V12H20V17C20 18.1046 19.1046 19 18 19H6C4.89543 19 4 18.1046 4 17V7Z" fill="rgba(255,255,255,0.85)"></path></svg>');
           background-color: rgba(255, 255, 255, 0.065);
@@ -1029,7 +1030,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
           display: flex;
           justify-content: center;
           font-weight: '500';
-          font-family: 'Poppins', sans-serif;
+          font-family: 'Lato';
         }
         .tab {
           transition: 0.2s ease;
@@ -1041,7 +1042,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         .tab.active {
           color: #FFFF;
           border-bottom: 1.5px solid;
-          border-bottom-color: #5747FF;
+          border-bottom-color: #e45015;
         }
         @keyframes shimmer {
           0% {
@@ -1064,8 +1065,8 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         }
         .big-button {
           padding: 12px 5px 12px 5px;
-          font-family: 'Poppins', sans-serif;
-          background-color: #4e40e6;
+          font-family: 'Lato';
+          background-color: #ef533f;
           color: #FFF;
           width: 100%;
           border-radius: 10px;
@@ -1099,7 +1100,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         }
         .medium-button {
           padding: 6px 0px 8px 0px;
-          font-family: 'Poppins', sans-serif;
+          font-family: 'Lato';
           background-color: rgba(205, 200, 255, 0.04);
           width: 100%;
           border-radius: 10px;
@@ -1133,7 +1134,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         }
         .generate-button {
           width: 44%;
-          background-color: #5747FF;
+          background-color: #e45015;
           color: #FFF;
           margin: 8px 0 0 0;
           padding: 6px 12px;
@@ -1179,22 +1180,15 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         }
       </style>
     </head>
-    <body style="font-family: 'Poppins', sans-serif; font-weight: '400'; font-size: 12px; line-height: 2 !important;">
+    <body style="font-family: 'Lato'; font-weight: '400'; font-size: 12px; line-height: 2 !important;">
       <div>
         <div>
           <div class="tab-container w-full">
-            <div class="tab active text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[32%]" id="chat-tab">Chat
-            </div>
-            <div class="tab text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[32%]" id="modify-tab">Modify
-            </div>
-            <div class="tab text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[32%]" id="analyze-tab">Analyze
-            </div>
-            <div class="tab text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[32%]" id="generate-tab">Generate
-            </div>
+            <div class="tab active text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[50%]" id="chat-tab">Chat</div>
+            <div class="tab text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[50%]" id="analyze-tab">Analyze</div>
           </div>
         </div>
         <div id="chat-content">
-        <a href="https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&response_type=code&client_id=126672882416-dq83ed730p5s3kk4eteiqv4ifc00ppf4.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fgoogle&service=lso&o2v=2&flowName=GeneralOAuthFlow">LOGIN</a>
           <div>
             <button class="button-clear-input" onclick="clearAndShrink()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M18.5374 19.5674C16.7844 21.0831 14.4993 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 14.1361 21.3302 16.1158 20.1892 17.7406L17 12H20C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C14.1502 20 16.1022 19.1517 17.5398 17.7716L18.5374 19.5674Z" fill="rgba(255,255,255,1)"></path></svg>
@@ -1231,81 +1225,9 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
                 }
               }
             </script>
-          </div>
-        </div>
-        <div id="modify-content" style="display: none;">
-          <div>
-            <div class="review-flex-container mb-3">
-              <script>
-                function submitPrompt(prompt) {
-                  vscode.postMessage({
-                    type: 'submitPrompt',
-                    value: prompt
-                  });
-                }
-              </script>
-              <div class="w-full flex flex-wrap">
-                <div class="w-1/2">
-                  <div class="m-1 pb-[3px]">
-                    <button
-                      class="medium-button subpixel-antialiased text-[11.5px] tracking-wider flex justify-between items-center"
-                      id="btn-debug">
-                      <svg class="ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M10.5621 4.14773C11.0262 4.05083 11.5071 3.99989 12 3.99989C12.4929 3.99989 12.9738 4.05083 13.4379 4.14773L15.1213 2.46436L16.5355 3.87857L15.4859 4.92822C16.7177 5.63698 17.7135 6.70984 18.3264 7.99989H21V9.99989H18.9291C18.9758 10.3265 19 10.6604 19 10.9999V11.9999H21V13.9999H19V14.9999C19 15.3394 18.9758 15.6733 18.9291 15.9999H21V17.9999H18.3264C17.2029 20.3648 14.7924 21.9999 12 21.9999C9.2076 21.9999 6.7971 20.3648 5.67363 17.9999H3V15.9999H5.07089C5.02417 15.6733 5 15.3394 5 14.9999V13.9999H3V11.9999H5V10.9999C5 10.6604 5.02417 10.3265 5.07089 9.99989H3V7.99989H5.67363C6.28647 6.70984 7.28227 5.63698 8.51412 4.92822L7.46447 3.87857L8.87868 2.46436L10.5621 4.14773ZM12 5.99989C9.23858 5.99989 7 8.23847 7 10.9999V14.9999C7 17.7613 9.23858 19.9999 12 19.9999C14.7614 19.9999 17 17.7613 17 14.9999V10.9999C17 8.23847 14.7614 5.99989 12 5.99989ZM9 13.9999H15V15.9999H9V13.9999ZM9 9.99989H15V11.9999H9V9.99989Z" fill="rgba(255,255,255,1)"></path></svg>                      <div class="mx-auto pr-6 pl-1">DEBUG</div>
-                    </button>
-                  </div>
-                  <div class="m-1 pb-[3px]">
-                    <button
-                      class="medium-button subpixel-antialiased text-[11.5px] tracking-wider flex justify-between items-center"
-                      id="btn-document">
-                      <svg class="ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M13 21V23H11V21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H9C10.1947 3 11.2671 3.52375 12 4.35418C12.7329 3.52375 13.8053 3 15 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H13ZM20 19V5H15C13.8954 5 13 5.89543 13 7V19H20ZM11 19V7C11 5.89543 10.1046 5 9 5H4V19H11Z" fill="rgba(255,255,255,1)"></path></svg>                      <div class="mx-auto pr-6 pl-1">DOCUMENT</div>
-                    </button>
-                  </div>
-                  <div class="m-1 pb-[3px]">
-                    <button
-                      class="medium-button subpixel-antialiased text-[11.5px] tracking-wider flex justify-between items-center"
-                      id="btn-coverage">
-                      <svg class="ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M12 1L20.2169 2.82598C20.6745 2.92766 21 3.33347 21 3.80217V13.7889C21 15.795 19.9974 17.6684 18.3282 18.7812L12 23L5.6718 18.7812C4.00261 17.6684 3 15.795 3 13.7889V3.80217C3 3.33347 3.32553 2.92766 3.78307 2.82598L12 1ZM12 3.04879L5 4.60434V13.7889C5 15.1263 5.6684 16.3752 6.7812 17.1171L12 20.5963L17.2188 17.1171C18.3316 16.3752 19 15.1263 19 13.7889V4.60434L12 3.04879ZM16.4524 8.22183L17.8666 9.63604L11.5026 16L7.25999 11.7574L8.67421 10.3431L11.5019 13.1709L16.4524 8.22183Z" fill="rgba(255,255,255,1)"></path></svg>
-                      <div class="mx-auto pr-6 pl-1">COVERAGE</div>
-                    </button>
-                  </div>
-                </div>
-                <div class="w-1/2">
-                  <div class="m-1 pb-[3px]">
-                    <button
-                      class="medium-button subpixel-antialiased text-[11.5px] tracking-wider flex justify-between items-center"
-                      id="btn-complete">
-                      <svg class="ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M15.1986 9.94435C14.7649 9.53358 14.4859 8.98601 14.4085 8.39371L14.0056 5.31126L11.275 6.79711C10.7503 7.08262 10.1433 7.17876 9.55608 7.06936L6.49998 6.50003L7.06931 9.55612C7.17871 10.1434 7.08257 10.7503 6.79707 11.275L5.31121 14.0056L8.39367 14.4085C8.98596 14.4859 9.53353 14.7649 9.94431 15.1986L12.0821 17.4555L13.4178 14.6485C13.6745 14.1091 14.109 13.6745 14.6484 13.4179L17.4555 12.0821L15.1986 9.94435ZM15.2238 15.5078L13.0111 20.1579C12.8687 20.4572 12.5107 20.5843 12.2115 20.4419C12.1448 20.4102 12.0845 20.3664 12.0337 20.3127L8.49229 16.574C8.39749 16.4739 8.27113 16.4095 8.13445 16.3917L3.02816 15.7242C2.69958 15.6812 2.46804 15.3801 2.51099 15.0515C2.52056 14.9782 2.54359 14.9074 2.5789 14.8425L5.04031 10.3191C5.1062 10.198 5.12839 10.0579 5.10314 9.92241L4.16 4.85979C4.09931 4.53402 4.3142 4.22074 4.63997 4.16005C4.7126 4.14652 4.78711 4.14652 4.85974 4.16005L9.92237 5.10319C10.0579 5.12843 10.198 5.10625 10.319 5.04036L14.8424 2.57895C15.1335 2.42056 15.4979 2.52812 15.6562 2.81919C15.6916 2.88409 15.7146 2.95495 15.7241 3.02821L16.3916 8.13449C16.4095 8.27118 16.4739 8.39754 16.5739 8.49233L20.3127 12.0337C20.5533 12.2616 20.5636 12.6414 20.3357 12.8819C20.2849 12.9356 20.2246 12.9794 20.1579 13.0111L15.5078 15.2238C15.3833 15.2831 15.283 15.3833 15.2238 15.5078ZM16.0206 17.4349L17.4348 16.0207L21.6775 20.2633L20.2633 21.6775L16.0206 17.4349Z" fill="rgba(255,255,255,1)"></path></svg>
-                      <div class="mx-auto pr-6 pl-1">COMPLETE</div>
-                    </button>
-                  </div>
-                  <div class="m-1 pb-[3px]">
-                    <button
-                      class="medium-button subpixel-antialiased text-[11.5px] tracking-wider flex justify-between items-center"
-                      id="btn-prettify">
-                      <svg class="ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M8 19.9966V14.9966H10V19.9966H19V12.9966H5V19.9966H8ZM4 10.9966H20V7.99658H14V3.99658H10V7.99658H4V10.9966ZM3 20.9966V12.9966H2V6.99658C2 6.4443 2.44772 5.99658 3 5.99658H8V2.99658C8 2.4443 8.44772 1.99658 9 1.99658H15C15.5523 1.99658 16 2.4443 16 2.99658V5.99658H21C21.5523 5.99658 22 6.4443 22 6.99658V12.9966H21V20.9966C21 21.5489 20.5523 21.9966 20 21.9966H4C3.44772 21.9966 3 21.5489 3 20.9966Z" fill="rgba(255,255,255,1)"></path></svg>
-                      <div class="mx-auto pr-6 pl-1">PRETTIFY</div>
-                    </button>
-                  </div>
-                  <div class="m-1 pb-[3px]">
-                    <button
-                      class="medium-button subpixel-antialiased text-[11.5px] tracking-wider flex justify-between items-center"
-                      id="btn-optimize">
-                      <svg class="ml-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M13 9H21L11 24V15H4L13 0V9ZM11 11V7.22063L7.53238 13H13V17.3944L17.263 11H11Z" fill="rgba(255,255,255,1)"></path></svg>
-                      <div class="mx-auto pr-6 pl-1">OPTIMIZE</div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <script>
-                document.getElementById('closeButton').addEventListener('click', function () {
-                  document.getElementById('warningDiv').style.display = 'none';
-                });
-              </script>
             </div>
           </div>
-        </div>
-      </div>
-      </div>
+      
       <div id="analyze-content" style="display: none;">
         <div>
           <div class="review-flex-container mb-3">
@@ -1331,7 +1253,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
               </button>
             </div>
           </div>
-          <div id="warningDiv" class="relative bg-[#6e62e9] bg-opacity-15 mb-3 rounded-lg z-50">
+          <div id="warningDiv" class="relative bg-[#ff5757] bg-opacity-15 mb-3 rounded-lg z-50">
             <div class="flex items-center justify-between">
               <p class="text-left subpixel-antialiased text-[11px] text-[rgba(255,255,255,0.9)] px-4">
               ⓘ Since AI-powered analysis may propose several solutions; ensure each is properly reviewed.
@@ -1449,7 +1371,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
               </span>
               </span>
               <div
-                class="invisible group-hover:visible absolute left-30 w-[260px] bottom-full mb-2 bg-[#6e62e9] p-3 rounded-lg text-[11.5px] text-white shadow-lg transform hover:scale-105 transition-transform duration-200">
+                class="invisible group-hover:visible absolute left-30 w-[260px] bottom-full mb-2 bg-[#ff5757] p-3 rounded-lg text-[11.5px] text-white shadow-lg transform hover:scale-105 transition-transform duration-200">
                 Optionally—add specific instructions for testing (purpose, layout, style, etc...). Speak as you would to a
                 dev teammate.
               </div>
@@ -1539,53 +1461,21 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         <script>
           // Tab functionality
           const chatTab = document.getElementById('chat-tab');
-          const analyzetab = document.getElementById('analyze-tab');
-          const generatetab = document.getElementById('generate-tab');
-          const modifyTab = document.getElementById('modify-tab');
+          const analyzeTab = document.getElementById('analyze-tab');
           const chatContent = document.getElementById('chat-content');
-          const analyzecontent = document.getElementById('analyze-content');
-          const generatecontent = document.getElementById('generate-content');
-          const modifyContent = document.getElementById('modify-content');
+          const analyzeContent = document.getElementById('analyze-content');
+
           chatTab.addEventListener('click', () => {
             chatTab.classList.add('active');
-            analyzetab.classList.remove('active');
-            generatetab.classList.remove('active');
-            modifyTab.classList.remove('active');
+            analyzeTab.classList.remove('active');
             chatContent.style.display = 'block';
-            analyzecontent.style.display = 'none';
-            generatecontent.style.display = 'none';
-            modifyContent.style.display = 'none';
+            analyzeContent.style.display = 'none';
           });
-          analyzetab.addEventListener('click', () => {
+          analyzeTab.addEventListener('click', () => {
             chatTab.classList.remove('active');
-            analyzetab.classList.add('active');
-            generatetab.classList.remove('active');
-            modifyTab.classList.remove('active');
-    
+            analyzeTab.classList.add('active');
             chatContent.style.display = 'none';
-            analyzecontent.style.display = 'block';
-            generatecontent.style.display = 'none';
-            modifyContent.style.display = 'none';
-          });
-          generatetab.addEventListener('click', () => {
-            chatTab.classList.remove('active');
-            analyzetab.classList.remove('active');
-            generatetab.classList.add('active');
-            modifyTab.classList.remove('active');
-            chatContent.style.display = 'none';
-            analyzecontent.style.display = 'none';
-            generatecontent.style.display = 'block';
-            modifyContent.style.display = 'none';
-          });
-          modifyTab.addEventListener('click', () => {
-            chatTab.classList.remove('active');
-            analyzetab.classList.remove('active');
-            generatetab.classList.remove('active');
-            modifyTab.classList.add('active');
-            chatContent.style.display = 'none';
-            analyzecontent.style.display = 'none';
-            generatecontent.style.display = 'none';
-            modifyContent.style.display = 'block';
+            analyzeContent.style.display = 'block';
           });
         </script>
       </div>
@@ -1593,33 +1483,19 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
         <div id="loadingBar" class="h-full bg-[rgba(70,57,204,0.85)]" style="loading-bar"></div>
       </div>
       <div class="flex items-center space-x-2 py-3">
-        <button class="flex items-center text-[10px] pl-3 text-[#d3ceff] button-with-icon" id="clear">
+        <button class="flex items-center text-[10px] pl-3 text-[#ff5757] button-with-icon" id="clear">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z" fill="rgba(211,206,255,1)"></path></svg>
           <span style="letter-spacing:0.5px;">Clear</span>
         </button>
-        <button class="flex items-center text-[10px] pl-3 text-[#d3ceff] button-with-icon" id="regenerate">
+        <button class="flex items-center text-[10px] pl-3 text-[#ff5757] button-with-icon" id="regenerate">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M5.46257 4.43262C7.21556 2.91688 9.5007 2 12 2C17.5228 2 22 6.47715 22 12C22 14.1361 21.3302 16.1158 20.1892 17.7406L17 12H20C20 7.58172 16.4183 4 12 4C9.84982 4 7.89777 4.84827 6.46023 6.22842L5.46257 4.43262ZM18.5374 19.5674C16.7844 21.0831 14.4993 22 12 22C6.47715 22 2 17.5228 2 12C2 9.86386 2.66979 7.88416 3.8108 6.25944L7 12H4C4 16.4183 7.58172 20 12 20C14.1502 20 16.1022 19.1517 17.5398 17.7716L18.5374 19.5674Z" fill="rgba(211,206,255,1)"></path></svg>
         <span style="letter-spacing:0.5px;">Regenerate</span>
         </button>
-        <button class="flex items-center text-[10px] pl-3 text-[#d3ceff] button-with-icon" id="terminal">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM4 5V19H20V5H4ZM12 15H18V17H12V15ZM8.66685 12L5.83842 9.17157L7.25264 7.75736L11.4953 12L7.25264 16.2426L5.83842 14.8284L8.66685 12Z" fill="rgba(211,206,255,1)"></path></svg>
-        <span style="letter-spacing:0.5px;">SecureCode-Terminal</span>
-        </button>
       </div>
       <div id="response" class="py-2 px-3 mb-3 subpixel-antialiased rounded bg-[rgba(0,0,0,0.1)] text-[12]">
-          <p class="has-line-data" data-line-start="0" data-line-end="3">Hey! I’m SecureCode 🤖<br>
-          An assistant designed to help you with queries for an overall better, much smarter workflow 🧠<br><br>
-          Here’s some of the many ways I can help:</p>
-        <p class="has-line-data" data-line-start="4" data-line-end="10">
-          • Summarize package docs 📚<br>
-          • Answer code related queries 🔎<br>
-          • Optimize and solve code issues 🛠️<br>
-          • Refactor and suggest reliable code ✅<br>
-          • Generate code to fast-track your work 🚀</p>
-        <p class="has-line-data" data-line-start="11" data-line-end="12">Explore the 'Analyze', 'Modify', and 'Generate'
-          tabs for code improvements and useful extras. Utilize 'SecureCode-Terminal' for command line assistance.
-          Right-click on code snippets for quick, robust AI tools.</p>
-        <p class="has-line-data" data-line-start="13" data-line-end="14">Let’s get started, I’m listening 😊</p>
+        <p class="has-line-data" data-line-start="0" data-line-end="3">Hey! I’m SecureCode 🤖<br>
+          An assistant designed to help you with queries for an overall better, much smarter workflow 🧠<br></p>
+      
       </div>
       <script>
         var responseDiv = document.getElementById('response');

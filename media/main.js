@@ -52,9 +52,9 @@
       vscode.postMessage({ type: "regenerate" });
     });
 
-    document.getElementById("terminal").addEventListener("click", () => {
-      vscode.postMessage({ type: "terminal" });
-    });
+    // document.getElementById("terminal").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "terminal" });
+    // });
 
     document.getElementById("btn-behavior").addEventListener("click", () => {
       vscode.postMessage({ type: "analyze-behavior" });
@@ -63,45 +63,45 @@
       vscode.postMessage({ type: "analyze-review" });
     });
 
-    document.getElementById("btn-debug").addEventListener("click", () => {
-      vscode.postMessage({ type: "modify-debug" });
-    });
+    // document.getElementById("btn-debug").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "modify-debug" });
+    // });
 
-    document.getElementById("btn-document").addEventListener("click", () => {
-      vscode.postMessage({ type: "modify-document" });
-    });
+    // document.getElementById("btn-document").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "modify-document" });
+    // });
 
-    document.getElementById("btn-coverage").addEventListener("click", () => {
-      vscode.postMessage({ type: "modify-coverage" });
-    });
+    // document.getElementById("btn-coverage").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "modify-coverage" });
+    // });
 
-    document.getElementById("btn-complete").addEventListener("click", () => {
-      vscode.postMessage({ type: "modify-complete" });
-    });
+    // document.getElementById("btn-complete").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "modify-complete" });
+    // });
 
-    document.getElementById("btn-prettify").addEventListener("click", () => {
-      vscode.postMessage({ type: "modify-prettify" });
-    });
-    document.getElementById("btn-optimize").addEventListener("click", () => {
-      vscode.postMessage({ type: "modify-optimize" });
-    });
-    document
-      .getElementById("generate-convert-code")
-      .addEventListener("click", () => {
-        vscode.postMessage({ type: "generate-convert-code" });
-      });
+    // document.getElementById("btn-prettify").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "modify-prettify" });
+    // });
+    // document.getElementById("btn-optimize").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "modify-optimize" });
+    // });
+    // document
+    //   .getElementById("generate-convert-code")
+    //   .addEventListener("click", () => {
+    //     vscode.postMessage({ type: "generate-convert-code" });
+    //   });
 
-    document
-      .getElementById("generate-generate-tests")
-      .addEventListener("click", () => {
-        vscode.postMessage({ type: "generate-generate-tests" });
-      });
+    // document
+    //   .getElementById("generate-generate-tests")
+    //   .addEventListener("click", () => {
+    //     vscode.postMessage({ type: "generate-generate-tests" });
+    //   });
 
-    document
-      .getElementById("generate-generate-code")
-      .addEventListener("click", () => {
-        vscode.postMessage({ type: "generate-generate-code" });
-      });
+    // document
+    //   .getElementById("generate-generate-code")
+    //   .addEventListener("click", () => {
+    //     vscode.postMessage({ type: "generate-generate-code" });
+    //   });
 
     document
       .getElementById("translate-dropdown")
@@ -182,11 +182,11 @@
         });
       });
 
-    document
-      .getElementById("generate-generate-docs")
-      .addEventListener("click", () => {
-        vscode.postMessage({ type: "generate-generate-docs" });
-      });
+    // document
+    //   .getElementById("generate-generate-docs")
+    //   .addEventListener("click", () => {
+    //     vscode.postMessage({ type: "generate-generate-docs" });
+    //   });
 
     function stopLoading() {
       loadingBar.style.width = "0";
@@ -368,9 +368,9 @@
     //document.getElementById("response").innerHTML = document.getElementById("response").innerHTML.replaceAll('<', '&lt;').replaceAll('>', '&gt;');
   }
 
-  document.getElementById("send-button").addEventListener("click", () => {
-    vscode.postMessage({ type: "generate-convert-code" });
-  });
+  // document.getElementById("send-button").addEventListener("click", () => {
+  //   vscode.postMessage({ type: "generate-convert-code" });
+  // });
 
   // Listen for keyup events on the prompt input element
 })();
