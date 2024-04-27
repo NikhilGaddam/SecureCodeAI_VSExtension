@@ -56,9 +56,9 @@
     //   vscode.postMessage({ type: "terminal" });
     // });
 
-    document.getElementById("btn-behavior").addEventListener("click", () => {
-      vscode.postMessage({ type: "analyze-behavior" });
-    });
+    // document.getElementById("btn-behavior").addEventListener("click", () => {
+    //   vscode.postMessage({ type: "analyze-behavior" });
+    // });
     document.getElementById("btn-review").addEventListener("click", () => {
       vscode.postMessage({ type: "analyze-review" });
     });
@@ -103,84 +103,84 @@
     //     vscode.postMessage({ type: "generate-generate-code" });
     //   });
 
-    document
-      .getElementById("translate-dropdown")
-      .addEventListener("change", (event) => {
-        const language = event.target.value;
-        vscode.postMessage({
-          type: "languageSelected",
-          value: language,
-        });
-      });
+    // document
+    //   .getElementById("translate-dropdown")
+    //   .addEventListener("change", (event) => {
+    //     const language = event.target.value;
+    //     vscode.postMessage({
+    //       type: "languageSelected",
+    //       value: language,
+    //     });
+    //   });
 
-    document
-      .getElementById("function-dropdown")
-      .addEventListener("change", (event) => {
-        const language = event.target.value;
-        vscode.postMessage({
-          type: "functionSelected",
-          value: language,
-        });
-      });
+    // document
+    //   .getElementById("function-dropdown")
+    //   .addEventListener("change", (event) => {
+    //     const language = event.target.value;
+    //     vscode.postMessage({
+    //       type: "functionSelected",
+    //       value: language,
+    //     });
+    //   });
 
-    document
-      .getElementById("function-objective")
-      .addEventListener("change", (event) => {
-        const functionObjective = event.target.value;
-        vscode.postMessage({
-          type: "functionObjective",
-          value: functionObjective,
-        });
-      });
-    document
-      .getElementById("function-inputs")
-      .addEventListener("change", (event) => {
-        const functionInputs = event.target.value;
-        vscode.postMessage({
-          type: "functionInputs",
-          value: functionInputs,
-        });
-      });
-    document
-      .getElementById("function-outputs")
-      .addEventListener("change", (event) => {
-        const functionOutputs = event.target.value;
-        vscode.postMessage({
-          type: "functionOutputs",
-          value: functionOutputs,
-        });
-      });
+    // document
+    //   .getElementById("function-objective")
+    //   .addEventListener("change", (event) => {
+    //     const functionObjective = event.target.value;
+    //     vscode.postMessage({
+    //       type: "functionObjective",
+    //       value: functionObjective,
+    //     });
+    //   });
+    // document
+    //   .getElementById("function-inputs")
+    //   .addEventListener("change", (event) => {
+    //     const functionInputs = event.target.value;
+    //     vscode.postMessage({
+    //       type: "functionInputs",
+    //       value: functionInputs,
+    //     });
+    //   });
+    // document
+    //   .getElementById("function-outputs")
+    //   .addEventListener("change", (event) => {
+    //     const functionOutputs = event.target.value;
+    //     vscode.postMessage({
+    //       type: "functionOutputs",
+    //       value: functionOutputs,
+    //     });
+    //   });
 
-    document
-      .getElementById("tests-dropdown")
-      .addEventListener("change", (event) => {
-        const framework = event.target.value;
-        vscode.postMessage({
-          type: "frameworkSelected",
-          value: framework,
-        });
-      });
-    document
-      .getElementById("tests-instructions")
-      .addEventListener("change", (event) => {
-        const testsInstructions = event.target.value;
-        vscode.postMessage({
-          type: "testsInstructions",
-          value: testsInstructions,
-        });
-      });
+    // document
+    //   .getElementById("tests-dropdown")
+    //   .addEventListener("change", (event) => {
+    //     const framework = event.target.value;
+    //     vscode.postMessage({
+    //       type: "frameworkSelected",
+    //       value: framework,
+    //     });
+    //   });
+    // document
+    //   .getElementById("tests-instructions")
+    //   .addEventListener("change", (event) => {
+    //     const testsInstructions = event.target.value;
+    //     vscode.postMessage({
+    //       type: "testsInstructions",
+    //       value: testsInstructions,
+    //     });
+    //   });
 
-    document
-      .getElementById("docs-instructions")
-      .addEventListener("change", (event) => {
-        const docsInstructions = event.target.value;
-        console.log("Input value changed. Current value: " + docsInstructions);
+    // document
+    //   .getElementById("docs-instructions")
+    //   .addEventListener("change", (event) => {
+    //     const docsInstructions = event.target.value;
+    //     console.log("Input value changed. Current value: " + docsInstructions);
 
-        vscode.postMessage({
-          type: "docsInstructions",
-          value: docsInstructions,
-        });
-      });
+    //     vscode.postMessage({
+    //       type: "docsInstructions",
+    //       value: docsInstructions,
+    //     });
+    //   });
 
     // document
     //   .getElementById("generate-generate-docs")

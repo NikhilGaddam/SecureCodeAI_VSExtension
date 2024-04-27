@@ -5,6 +5,10 @@ import { Configuration, OpenAIApi, CreateChatCompletionRequest } from "openai";
 import createPrompt from "./prompt";
 import {waitForAuthentication} from './authentication';
 
+//Create output channel
+let secureLog = vscode.window.createOutputChannel("secureLog");
+secureLog.show();
+
 type AuthInfo = { apiKey?: string };
 export type Settings = {
   selectedInsideCodeblock?: boolean;
@@ -618,6 +622,7 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
     let searchPrompt = createPrompt(prompt, this._settings, selectedText);
     this._fullPrompt = searchPrompt;
     console.log(`Sending request to OpenAI: Prompt: ${searchPrompt}`);
+    // secureLog.appendLine(`Sending request to OpenAI: Prompt: ${searchPrompt}`);
     if (this._view) {
       this._view.show?.(true);
       this._view.webview.postMessage({ type: "addResponse", value: response });
@@ -1182,19 +1187,27 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
     </head>
     <body style="font-family: 'Lato'; font-weight: '400'; font-size: 12px; line-height: 2 !important;">
       <div>
+        <div id="analyze-content">
         <div>
-          <div class="tab-container w-full">
-            <div class="tab active text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[50%]" id="chat-tab">Chat</div>
-            <div class="tab text-[12.5px] text-[rgba(221,218,255,0.5)] tracking-wide pb-2 text-center w-[50%]" id="analyze-tab">Analyze</div>
+          <div class="review-flex-container mb-3">
+            <script>
+              function submitPrompt(prompt) {
+                vscode.postMessage({
+                  type: 'submitPrompt',
+                  value: prompt
+                });
+              }
+            </script>
+            <div class="m-1 w-full">
+              <button class="big-button subpixel-antialiased text-[12px] tracking-wider flex items-center" id="btn-review">
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" viewBox="0 0 24 24" width="16" height="16"><path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748ZM12.1779 7.17624C11.4834 7.48982 11 8.18846 11 9C11 10.1046 11.8954 11 13 11C13.8115 11 14.5102 10.5166 14.8238 9.82212C14.9383 10.1945 15 10.59 15 11C15 13.2091 13.2091 15 11 15C8.79086 15 7 13.2091 7 11C7 8.79086 8.79086 7 11 7C11.41 7 11.8055 7.06167 12.1779 7.17624Z" fill="rgba(255,255,255,1)"></path></svg>
+                <div class="mx-auto pr-6">Analyze Code</div>
+              </button>
+            </div>
           </div>
-        </div>
-        <div id="chat-content">
           <div>
-            <button class="button-clear-input" onclick="clearAndShrink()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M18.5374 19.5674C16.7844 21.0831 14.4993 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 14.1361 21.3302 16.1158 20.1892 17.7406L17 12H20C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C14.1502 20 16.1022 19.1517 17.5398 17.7716L18.5374 19.5674Z" fill="rgba(255,255,255,1)"></path></svg>
-            </button>
             <textarea class="w-full subpixel-antialiased p-2 pl-8 pr-8 mb-1" style="resize: none;" rows="1"
-              placeholder="Ask anything code-related..." id="prompt-input" oninput="autoExpand(this)"
+              placeholder="Ask anything about code..." id="prompt-input" oninput="autoExpand(this)"
               onkeydown="preventNewLine(event)"></textarea>
             <button id="submit-button" class="send-button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18"><path d="M3.5 1.3457C3.58425 1.3457 3.66714 1.36699 3.74096 1.4076L22.2034 11.562C22.4454 11.695 22.5337 11.9991 22.4006 12.241C22.3549 12.3241 22.2865 12.3925 22.2034 12.4382L3.74096 22.5925C3.499 22.7256 3.19497 22.6374 3.06189 22.3954C3.02129 22.3216 3 22.2387 3 22.1544V1.8457C3 1.56956 3.22386 1.3457 3.5 1.3457ZM5 4.38261V11.0001H10V13.0001H5V19.6175L18.8499 12.0001L5 4.38261Z" fill="rgba(255,255,255,1)"></path></svg>
@@ -1226,255 +1239,20 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
               }
             </script>
             </div>
-          </div>
-      
-      <div id="analyze-content" style="display: none;">
-        <div>
-          <div class="review-flex-container mb-3">
-            <script>
-              function submitPrompt(prompt) {
-                vscode.postMessage({
-                  type: 'submitPrompt',
-                  value: prompt
-                });
-              }
-            </script>
-            <div class="m-1 w-full">
-              <button class="big-button subpixel-antialiased text-[12px] tracking-wider flex items-center"
-                id="btn-behavior">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" viewBox="0 0 24 24" width="16" height="16"><path d="M6 21.5C4.067 21.5 2.5 19.933 2.5 18C2.5 16.067 4.067 14.5 6 14.5C7.5852 14.5 8.92427 15.5538 9.35481 16.9991L15 16.9993V15L17 14.9993V9.24332L14.757 6.99932H9V8.99996H3V2.99996H9V4.99932H14.757L18 1.75732L22.2426 5.99996L19 9.24132V14.9993L21 15V21H15V18.9993L9.35499 19.0002C8.92464 20.4458 7.58543 21.5 6 21.5ZM6 16.5C5.17157 16.5 4.5 17.1715 4.5 18C4.5 18.8284 5.17157 19.5 6 19.5C6.82843 19.5 7.5 18.8284 7.5 18C7.5 17.1715 6.82843 16.5 6 16.5ZM19 17H17V19H19V17ZM18 4.58575L16.5858 5.99996L18 7.41418L19.4142 5.99996L18 4.58575ZM7 4.99996H5V6.99996H7V4.99996Z" fill="rgba(255,255,255,1)"></path></svg>
-                <div class="mx-auto pr-6">BEHAVIOR</div>
-              </button>
-            </div>
-            <div class="m-1 w-full">
-              <button class="big-button subpixel-antialiased text-[12px] tracking-wider flex items-center" id="btn-review">
-              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" viewBox="0 0 24 24" width="16" height="16"><path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748ZM12.1779 7.17624C11.4834 7.48982 11 8.18846 11 9C11 10.1046 11.8954 11 13 11C13.8115 11 14.5102 10.5166 14.8238 9.82212C14.9383 10.1945 15 10.59 15 11C15 13.2091 13.2091 15 11 15C8.79086 15 7 13.2091 7 11C7 8.79086 8.79086 7 11 7C11.41 7 11.8055 7.06167 12.1779 7.17624Z" fill="rgba(255,255,255,1)"></path></svg>
-                <div class="mx-auto pr-6">REVIEW</div>
-              </button>
-            </div>
-          </div>
-          <div id="warningDiv" class="relative bg-[#ff5757] bg-opacity-15 mb-3 rounded-lg z-50">
-            <div class="flex items-center justify-between">
-              <p class="text-left subpixel-antialiased text-[11px] text-[rgba(255,255,255,0.9)] px-4">
-              ⓘ Since AI-powered analysis may propose several solutions; ensure each is properly reviewed.
-              </p>
-              <button id="closeButton" class="bg-transparent rounded pr-3">
-                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M6.57084 0.75C6.39072 0.75 6.21798 0.821547 6.09061 0.948908L4.00001 3.03971L1.9101 0.949265C1.78274 0.821905 1.60999 0.750357 1.42987 0.750357C1.24975 0.750357 1.07701 0.821905 0.94964 0.949265C0.822271 1.07663 0.750714 1.24937 0.750714 1.42949C0.750714 1.6096 0.822289 1.78235 0.94964 1.90971L3.03952 4.00012L0.948926 6.08993C0.821558 6.21729 0.75 6.39003 0.75 6.57015C0.75 6.75028 0.821558 6.92302 0.948926 7.05038C1.07629 7.17774 1.24904 7.24929 1.42916 7.24929C1.60928 7.24929 1.78202 7.17774 1.90939 7.05038L3.99994 4.96061L6.0899 7.05109C6.21726 7.17845 6.39001 7.25 6.57013 7.25C6.75025 7.25 6.92299 7.17845 7.05036 7.05109C7.17773 6.92373 7.24929 6.75099 7.24929 6.57087C7.24929 6.39075 7.17773 6.218 7.05036 6.09064L4.96044 4.00019L7.05107 1.90936C7.17844 1.78199 7.25 1.60925 7.25 1.42913C7.25 1.24901 7.17844 1.07627 7.05107 0.948908C6.92371 0.821547 6.75096 0.75 6.57084 0.75Z"
-                    fill="#C0B9FF" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <script>
-            document.getElementById('closeButton').addEventListener('click', function () {
-              document.getElementById('warningDiv').style.display = 'none';
-            });
-          </script>
-        </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      <div id="generate-content" style="display: none;">
-      <div class="flex-container">
-      <details>
-        <summary class="big-text">Translator</summary>
-        <div class="pt-4">
-        <div class="div-style-container">
-          <span class="small-text">Translate to</span>
-          <select class="documentation-style-dropdown" id="translate-dropdown">
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          <option value="c">C</option>
-          <option value="c++">C++</option>
-          <option value="c#">C#</option>
-          <option value="php">PHP</option>
-          <option value="typescript">TypeScript</option>
-          <option value="shell">Shell</option>
-          <option value="sql">SQL</option>
-          <option value="go">Go</option>
-          <option value="swift">Swift</option>
-          <option value="kotlin">Kotlin</option>
-          <option value="ruby">Ruby</option>
-          <option value="rust">Rust</option>
-          <option value="r">R</option>
-          <option value="dart">Dart</option>
-          <option value="matlab">MATLAB</option>
-          <option value="perl">Perl</option>
-          <option value="bash">Bash</option>
-          <option value="powershell">PowerShell</option>
-          <option value="groovy">Groovy</option>
-          <option value="vba">VBA</option>
-          <option value="lua">Lua</option>
-          <option value="haskell">Haskell</option>
-          <option value="scala">Scala</option>
-          <option value="f#">F#</option>
-          <option value="objective-c">Objective-C</option>
-          <option value="elixir">Elixir</option>
-          <option value="clojure">Clojure</option>
-          <option value="julia">Julia</option>
-          <option value="delphi">Delphi</option>
-          <option value="abap">ABAP</option>
-          <option value="apex">Apex</option>
-          <option value="awk">AWK</option>
-          <option value="ocaml">OCaml</option>
-          <option value="elm">Elm</option>
-          <option value="nim">Nim</option>
-          <option value="d">D</option>
-          <option value="verilog">Verilog</option>
-          <option value="vhdl">VHDL</option>
-          <option value="haxe">Haxe</option>
-          <option value="gdscript">GDScript</option>          
-          </select>
-        </div>
-        <button class="generate-button text-[11.5px] tracking-wide" style="display: flex; align-items: center;" id="generate-convert-code">
-        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M16 16V12L21 17L16 22V18H4V16H16ZM8 2V5.999L20 6V8H8V12L3 7L8 2Z" fill="rgba(255,255,255,1)"></path></svg>
-          Convert Code
-        </button>
-      </div>
-      </div>
-      </details>
-        <div class="flex-container">
-        <details>
-          <summary class="big-text">Unit Testing</summary>
-          <div class="pt-4">
-        <div class="div-style-container">
-          <span class="small-text">Testing framework</span>
-          <select class="testing-framework-dropdown" id="tests-dropdown">
-          <option value="suitable">Auto</option>
-            <option value="jest">Jest</option>
-            <option value="unittest">Unittest</option>
-            <option value="mocha">Mocha</option>
-            <option value="rspec">RSpec</option>
-            <option value="pytest">Pytest</option>
-            <option value="cucumber">Cucumber</option>
-            <option value="junit">JUnit</option>
-            <option value="phpunit">PHPUnit</option>
-            <option value="karma">Karma</option>
-            <option value="jasmine">Jasmine</option>
-            <option value="testng">TestNG</option>
-            <option value="nunit">NUnit</option>
-            <option value="mstest">MSTest</option>
-            <option value="xunit">xUnit</option>
-            <option value="mockito">Mockito</option>
-          </select>
-        </div>
-        <div class="div-style-container">
-          <div class="relative inline-block">
-            <div class="relative group inline-block">
-              <span class="small-text flex items-center">
-                <span class="mr-1">AI instructions</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon ml-auto" viewBox="0 0 24 24" width="12" height="12"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="rgba(121,108,255,1)"></path></svg>
-              </span>
-              </span>
-              <div
-                class="invisible group-hover:visible absolute left-30 w-[260px] bottom-full mb-2 bg-[#ff5757] p-3 rounded-lg text-[11.5px] text-white shadow-lg transform hover:scale-105 transition-transform duration-200">
-                Optionally—add specific instructions for testing (purpose, layout, style, etc...). Speak as you would to a
-                dev teammate.
-              </div>
-            </div>
-          </div>
-          <input class="input-small-spark" placeholder="E.g., focus on exceptions" id="tests-instructions">
-        </div>
-        <button class="generate-button text-[11.5px] tracking-wide" style="display: flex; align-items: center;" id="generate-generate-tests">
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" viewBox="0 0 24 24" width="12" height="12"><path d="M15.9994 2V4H14.9994V7.24291C14.9994 8.40051 15.2506 9.54432 15.7357 10.5954L20.017 19.8714C20.3641 20.6236 20.0358 21.5148 19.2836 21.8619C19.0865 21.9529 18.8721 22 18.655 22H5.34375C4.51532 22 3.84375 21.3284 3.84375 20.5C3.84375 20.2829 3.89085 20.0685 3.98181 19.8714L8.26306 10.5954C8.74816 9.54432 8.99939 8.40051 8.99939 7.24291V4H7.99939V2H15.9994ZM13.3873 10.0012H10.6115C10.5072 10.3644 10.3823 10.7221 10.2371 11.0724L10.079 11.4335L6.12439 20H17.8734L13.9198 11.4335C13.7054 10.9691 13.5276 10.4902 13.3873 10.0012ZM10.9994 7.24291C10.9994 7.49626 10.9898 7.7491 10.9706 8.00087H13.0282C13.0189 7.87982 13.0119 7.75852 13.0072 7.63704L12.9994 7.24291V4H10.9994V7.24291Z" fill="rgba(255,255,255,1)"></path></svg>
-          Generate Tests
-        </button>
-      </div>
-          </div>
-        </details>    
-        <div class="flex-container">
-        <details>
-          <summary class="big-text">Custom Functions</summary>
-          <div class="pt-4">
-          <div class="div-style-container">
-            <span class="small-text">Language</span>
-            <select class="documentation-style-dropdown" id="function-dropdown">
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          <option value="c">C</option>
-          <option value="c++">C++</option>
-          <option value="c#">C#</option>
-          <option value="php">PHP</option>
-          <option value="typescript">TypeScript</option>
-          <option value="shell">Shell</option>
-          <option value="sql">SQL</option>
-          <option value="go">Go</option>
-          <option value="swift">Swift</option>
-          <option value="kotlin">Kotlin</option>
-          <option value="ruby">Ruby</option>
-          <option value="rust">Rust</option>
-          <option value="r">R</option>
-          <option value="dart">Dart</option>
-          <option value="matlab">MATLAB</option>
-          <option value="perl">Perl</option>
-          <option value="bash">Bash</option>
-          <option value="powershell">PowerShell</option>
-          <option value="groovy">Groovy</option>
-          <option value="vba">VBA</option>
-          <option value="lua">Lua</option>
-          <option value="haskell">Haskell</option>
-          <option value="scala">Scala</option>
-          <option value="f#">F#</option>
-          <option value="objective-c">Objective-C</option>
-          <option value="elixir">Elixir</option>
-          <option value="clojure">Clojure</option>
-          <option value="julia">Julia</option>
-          <option value="delphi">Delphi</option>
-          <option value="abap">ABAP</option>
-          <option value="apex">Apex</option>
-          <option value="awk">AWK</option>
-          <option value="ocaml">OCaml</option>
-          <option value="elm">Elm</option>
-          <option value="nim">Nim</option>
-          <option value="d">D</option>
-          <option value="verilog">Verilog</option>
-          <option value="vhdl">VHDL</option>
-          <option value="haxe">Haxe</option>
-          <option value="gdscript">GDScript</option> 
-            </select>
-          </div>
-          <div class="div-style-container">
-            <span class="small-text">Objective</span>
-            <input class="input-small-target" placeholder="E.g., calculate rectangle" id="function-objective">
-          </div>
-          <div class="div-style-container">
-            <span class="small-text">Inputs</span>
-            <input class="input-small-in" placeholder="E.g., width, height" id="function-inputs">
-          </div>
-          <div class="div-style-container">
-            <span class="small-text">Outputs</span>
-            <input class="input-small-out" placeholder="E.g., area value" id="function-outputs">
-          </div>
-          <button class="generate-button text-[11.5px] tracking-wide" style="display: flex; align-items: center;" id="generate-generate-code">
-          <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M24 12L18.3431 17.6569L16.9289 16.2426L21.1716 12L16.9289 7.75736L18.3431 6.34315L24 12ZM2.82843 12L7.07107 16.2426L5.65685 17.6569L0 12L5.65685 6.34315L7.07107 7.75736L2.82843 12ZM9.78845 21H7.66009L14.2116 3H16.3399L9.78845 21Z" fill="rgba(255,255,255,1)"></path></svg>
-            Generate Code
-          </button>
+
         </div>
         </div>
-        </details>
+        </div>
+        </div>
+        </div>
         <script src="${scriptUri}"></script>
         <script>
           // Tab functionality
-          const chatTab = document.getElementById('chat-tab');
           const analyzeTab = document.getElementById('analyze-tab');
-          const chatContent = document.getElementById('chat-content');
           const analyzeContent = document.getElementById('analyze-content');
 
-          chatTab.addEventListener('click', () => {
-            chatTab.classList.add('active');
-            analyzeTab.classList.remove('active');
-            chatContent.style.display = 'block';
-            analyzeContent.style.display = 'none';
-          });
           analyzeTab.addEventListener('click', () => {
-            chatTab.classList.remove('active');
             analyzeTab.classList.add('active');
-            chatContent.style.display = 'none';
             analyzeContent.style.display = 'block';
           });
         </script>
@@ -1495,7 +1273,6 @@ class AlvaViewProvider implements vscode.WebviewViewProvider {
       <div id="response" class="py-2 px-3 mb-3 subpixel-antialiased rounded bg-[rgba(0,0,0,0.1)] text-[12]">
         <p class="has-line-data" data-line-start="0" data-line-end="3">Hey! I’m SecureCode 🤖<br>
           An assistant designed to help you with queries for an overall better, much smarter workflow 🧠<br></p>
-      
       </div>
       <script>
         var responseDiv = document.getElementById('response');
