@@ -26,14 +26,19 @@ Once installed, the extension will automatically begin scanning your files for v
 
 Here are some screenshots demonstrating SecureCode AI in action:
 
-![Overview of SecureCode AI](path/to/screenshot1.png)
+![Overview of SecureCode AI](media/Screenshot0.png)
 *Overview of the SecureCode AI interface within VS Code.*
 
-![Vulnerability Detection Example](path/to/screenshot2.png)
+![Vulnerability Detection Example](media/Screenshot1.png)
+![Vulnerability Detection Example](media/Screenshot2.png)
 *Example of real-time vulnerability detection.*
 
-![Suggestions for Code Improvements](path/to/screenshot3.png)
+![Suggestions for Code Improvements](media/Screenshot3.png)
 *SecureCode AI suggesting security improvements.*
+
+## Authors
+
+SecureCode AI was developed by [Nikhil Gaddam](https://github.com/NikhilGaddam) and [Ram Prashanth Azhagappa Selvan](https://github.com/ram-prashanth), graduate students at Virginia Tech. This project was part of the coursework for CS_5590 Software System and Security, focusing on integrating AI with software security practices.
 
 ## Contributing
 
@@ -42,10 +47,6 @@ Contributions to SecureCode AI are welcome! Here's how you can contribute:
 - **Reporting Bugs**: If you find a bug, please report it by opening an issue in the repository.
 - **Suggesting Enhancements**: Have an idea to make SecureCode AI better? Provide your suggestions through an issue.
 - **Pull Requests**: Want to contribute directly to the code? Fork the repository, make your changes, and submit a pull request.
-
-## License
-
-SecureCode AI is licensed under the MIT License. See the LICENSE file for more details.
 
 ## Support
 

@@ -152,21 +152,6 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.window.showErrorMessage("The input is empty.");
           }
         })
-    ),
-    vscode.commands.registerCommand("alva.optimize", () =>
-      commandHandler("promptPrefix.optimize")
-    ),
-    vscode.commands.registerCommand("alva.explain", () =>
-      commandHandler("promptPrefix.explain")
-    ),
-    vscode.commands.registerCommand("alva.complete", () =>
-      commandHandler("promptPrefix.complete")
-    ),
-    vscode.commands.registerCommand("alva.unitTesting", () =>
-      commandHandler("promptPrefix.unitTesting")
-    ),
-    vscode.commands.registerCommand("alva.documentation", () =>
-      commandHandler("promptPrefix.documentation")
     )
   );
   vscode.workspace.onDidChangeConfiguration(
