@@ -27,13 +27,19 @@ Once installed, the extension will automatically begin scanning your files for v
 Here are some screenshots demonstrating SecureCode AI in action:
 
 ![Overview of SecureCode AI](media/Screenshot0.png)
+  
+ <br> 
 *Overview of the SecureCode AI interface within VS Code.*
 
 ![Vulnerability Detection Example](media/Screenshot1.png)
 ![Vulnerability Detection Example](media/Screenshot2.png)
+  
+ <br> 
 *Example of real-time vulnerability detection.*
 
 ![Suggestions for Code Improvements](media/Screenshot3.png)
+  
+ <br> 
 *SecureCode AI suggesting security improvements.*
 
 ## Authors
