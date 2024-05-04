@@ -1,11 +1,10 @@
-// * Incase you want to understand it more, install "Better Comments"
 import * as vscode from "vscode";
 import axios, { CancelTokenSource } from "axios";
 import { Configuration, OpenAIApi, CreateChatCompletionRequest } from "openai";
 import createPrompt from "./prompt";
 import {waitForAuthentication} from './authentication';
 
-//Create output channel
+
 let secureLog = vscode.window.createOutputChannel("secureLog");
 secureLog.show();
 
@@ -18,20 +17,16 @@ export type Settings = {
   temperature?: number;
 };
 
-// * Start of life
 export function activate(context: vscode.ExtensionContext) {
   waitForAuthentication();
-  //startAuthentication()
-  // Setup the Bar view
+
   const provider = new AlvaViewProvider(context.extensionUri);
 
-  // Get settings
   const config = vscode.workspace.getConfiguration("alva");
   provider.setAuthenticationInfo({
     apiKey: config.get("apiKey"),
   });
 
-  // View Settings
   provider.setSettings({
     selectedInsideCodeblock: config.get("selectedInsideCodeblock") || false,
     pasteOnClick: config.get("pasteOnClick") || false,
@@ -40,7 +35,6 @@ export function activate(context: vscode.ExtensionContext) {
     model: config.get("model") || "gpt-4-turbo",
   });
 
-  // Insert view 
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       AlvaViewProvider.viewType,
